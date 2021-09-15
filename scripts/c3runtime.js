@@ -5250,6 +5250,47 @@ didChangeColor=false}renderer.Point(x,y,scaledSize,opacity)}}GetUserData(){retur
 }
 
 {
+'use strict';const C3=self.C3;const DOM_COMPONENT_ID="text-input";C3.Plugins.TextBox=class TextInputPlugin extends C3.SDKDOMPluginBase{constructor(opts){super(opts,DOM_COMPONENT_ID);this.AddElementMessageHandler("click",(sdkInst,e)=>sdkInst._OnClick(e));this.AddElementMessageHandler("dblclick",(sdkInst,e)=>sdkInst._OnDoubleClick(e));this.AddElementMessageHandler("change",(sdkInst,e)=>sdkInst._OnChange(e))}Release(){super.Release()}};
+
+}
+
+{
+'use strict';const C3=self.C3;C3.Plugins.TextBox.Type=class TextInputType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}};
+
+}
+
+{
+'use strict';const C3=self.C3;const C3X=self.C3X;const TEXT=0;const PLACEHOLDER=1;const TOOLTIP=2;const INITIALLY_VISIBLE=3;const ENABLE=4;const READ_ONLY=5;const SPELL_CHECK=6;const TYPE=7;const AUTO_FONT_SIZE=8;const ID=9;const DOM_COMPONENT_ID="text-input";const elemTypes=["text","password","email","number","tel","url","textarea","search"];
+C3.Plugins.TextBox.Instance=class TextInputInstance extends C3.SDKDOMInstanceBase{constructor(inst,properties){super(inst,DOM_COMPONENT_ID);this._text="";this._placeholder="";this._title="";this._isEnabled=true;this._isReadOnly=false;this._spellCheck=false;this._type="text";this._autoFontSize=true;this._maxLength=-1;this._id="";if(properties){this._text=properties[TEXT];this._placeholder=properties[PLACEHOLDER];this._title=properties[TOOLTIP];this.GetWorldInfo().SetVisible(properties[INITIALLY_VISIBLE]);
+this._isEnabled=properties[ENABLE];this._isReadOnly=properties[READ_ONLY];this._spellCheck=properties[SPELL_CHECK];this._type=elemTypes[properties[TYPE]];this._autoFontSize=properties[AUTO_FONT_SIZE];this._id=properties[ID]}this.CreateElement({"type":this._type,"id":this._id})}Release(){super.Release()}GetElementState(){return{"text":this._text,"placeholder":this._placeholder,"title":this._title,"isEnabled":this._isEnabled,"isReadOnly":this._isReadOnly,"spellCheck":this._spellCheck,"maxLength":this._maxLength}}async _OnClick(e){this.GetScriptInterface().dispatchEvent(C3.New(C3.Event,
+"click",true));await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnClicked)}async _OnDoubleClick(e){this.GetScriptInterface().dispatchEvent(C3.New(C3.Event,"dblclick",true));await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnDoubleClicked)}async _OnChange(e){this._text=e["text"];this.GetScriptInterface().dispatchEvent(C3.New(C3.Event,"change",true));await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnTextChanged)}_SetText(text){if(this._text===text)return;this._text=text;this.UpdateElementState()}_GetText(){return this._text}_SetPlaceholder(placeholder){if(this._placeholder===
+placeholder)return;this._placeholder=placeholder;this.UpdateElementState()}_GetPlaceholder(){return this._placeholder}_SetTooltip(title){if(this._title===title)return;this._title=title;this.UpdateElementState()}_GetTooltip(){return this._title}_SetEnabled(e){e=!!e;if(this._isEnabled===e)return;this._isEnabled=e;this.UpdateElementState()}_IsEnabled(){return this._isEnabled}_SetReadOnly(r){r=!!r;if(this._isReadOnly===r)return;this._isReadOnly=r;this.UpdateElementState()}_IsReadOnly(){return this._isReadOnly}_SetMaxLength(l){l=
+Math.max(+l,-1);if(this._maxLength===l)return;this._maxLength=l;this.UpdateElementState()}_GetMaxLength(){return this._maxLength}_ScrollToBottom(){Promise.resolve().then(()=>this.PostToDOMElement("scroll-to-bottom"))}Draw(renderer){}SaveToJson(){return{"t":this._text,"p":this._placeholder,"ti":this._title,"e":this._isEnabled,"r":this._isReadOnly,"sp":this._spellCheck,"ml":this._maxLength,"type":this._type,"id":this._id}}LoadFromJson(o){this._text=o["t"];this._placeholder=o["p"];this._title=o["ti"];
+this._isEnabled=o["e"];this._isReadOnly=o["r"];this._spellCheck=o["sp"];this._maxLength=o.hasOwnProperty("ml")?o["ml"]:-1;this._type=o["type"];this._id=o["id"];this.UpdateElementState()}GetPropertyValueByIndex(index){switch(index){case TEXT:return this._text;case PLACEHOLDER:return this._placeholder;case TOOLTIP:return this._title;case ENABLE:return this._isEnabled;case READ_ONLY:return this._isReadOnly;case SPELL_CHECK:return this._spellCheck;case AUTO_FONT_SIZE:return this._autoFontSize;case ID:return this._id}}SetPropertyValueByIndex(index,
+value){switch(index){case TEXT:if(this._text===value)return;this._text=value;this.UpdateElementState();break;case PLACEHOLDER:if(this._placeholder===value)return;this._placeholder=value;this.UpdateElementState();break;case TOOLTIP:if(this._title===value)return;this._title=value;this.UpdateElementState();break;case ENABLE:if(this._isEnabled===!!value)return;this._isEnabled=!!value;this.UpdateElementState();break;case READ_ONLY:if(this._isReadOnly===!!value)return;this._isReadOnly=!!value;this.UpdateElementState();
+break;case SPELL_CHECK:if(this._spellCheck===!!value)return;this._spellCheck=!!value;this.UpdateElementState();break;case AUTO_FONT_SIZE:this._autoFontSize=!!value;break;case ID:if(this._id===value)return;this._id=value;this.UpdateElementState();break}}GetDebuggerProperties(){const Acts=C3.Plugins.TextBox.Acts;const prefix="plugins.textbox";return[{title:prefix+".name",properties:[{name:prefix+".properties.text.name",value:this._text,onedit:v=>this.CallAction(Acts.SetText,v)},{name:prefix+".properties.enabled.name",
+value:this._isEnabled,onedit:v=>this.CallAction(Acts.SetEnabled,v)},{name:prefix+".properties.read-only.name",value:this._isReadOnly,onedit:v=>this.CallAction(Acts.SetReadOnly,v)}]}]}GetScriptInterfaceClass(){return self.ITextInputInstance}};const map=new WeakMap;
+self.ITextInputInstance=class ITextInputInstance extends self.IDOMInstance{constructor(){super();map.set(this,self.IInstance._GetInitInst().GetSdkInstance())}set text(str){C3X.RequireString(str);map.get(this)._SetText(str)}get text(){return map.get(this)._GetText()}set placeholder(str){C3X.RequireString(str);map.get(this)._SetPlaceholder(str)}get placeholder(){return map.get(this)._GetPlaceholder()}set tooltip(str){C3X.RequireString(str);map.get(this)._SetTooltip(str)}get tooltip(){return map.get(this)._GetTooltip()}set isEnabled(e){map.get(this)._SetEnabled(e)}get isEnabled(){return map.get(this)._IsEnabled()}set isReadOnly(r){map.get(this)._SetReadOnly(r)}get isReadOnly(){return map.get(this)._IsReadOnly()}set maxLength(l){C3X.RequireFiniteNumber(l);
+map.get(this)._SetMaxLength(l)}get maxLength(){return map.get(this)._GetMaxLength()}scrollToBottom(){map.get(this)._ScrollToBottom()}};
+
+}
+
+{
+'use strict';const C3=self.C3;C3.Plugins.TextBox.Cnds={CompareText(text,case_){if(case_===0)return C3.equalsNoCase(this._text,text);else return this._text===text},OnTextChanged(){return true},OnClicked(){return true},OnDoubleClicked(){return true}};
+
+}
+
+{
+'use strict';const C3=self.C3;C3.Plugins.TextBox.Acts={SetText(param){this._SetText(param.toString())},AppendText(param){if(param==="")return;this._SetText(this._GetText()+param)},SetPlaceholder(placeholder){this._SetPlaceholder(placeholder)},SetTooltip(title){this._SetTooltip(title)},SetReadOnly(r){this._SetReadOnly(r===0)},ScrollToBottom(){this._ScrollToBottom()},SetMaxLength(l){this._SetMaxLength(l)}};
+
+}
+
+{
+'use strict';const C3=self.C3;C3.Plugins.TextBox.Exps={Text(){return this._GetText()},MaxLength(){return this._GetMaxLength()}};
+
+}
+
+{
 'use strict';const C3=self.C3;C3.Behaviors.Tween=class TweenBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}};
 
 }
@@ -5538,6 +5579,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Particles,
 		C3.Behaviors.Rotate,
 		C3.Plugins.Eponesh_GameScore,
+		C3.Plugins.TextBox,
 		C3.Plugins.Text.Acts.SetVisible,
 		C3.Plugins.Text.Acts.SetText,
 		C3.Plugins.System.Acts.Wait,
@@ -5598,7 +5640,13 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.RestartLayout,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsShowFullscreen,
 		C3.Plugins.System.Acts.GoToLayout,
+		C3.Plugins.Eponesh_GameScore.Acts.FullscreenOpen,
+		C3.Plugins.Eponesh_GameScore.Cnds.IsFullscreenMode,
+		C3.Plugins.Eponesh_GameScore.Acts.FullscreenClose,
+		C3.Plugins.Eponesh_GameScore.Acts.PlayerSet,
+		C3.Plugins.Eponesh_GameScore.Acts.PlayerSync,
 		C3.Plugins.Arr.Acts.SetX,
+		C3.Plugins.Eponesh_GameScore.Acts.LeaderboardOpen,
 		C3.Plugins.Eponesh_GameScore.Cnds.IsAdsRewardedAvailable,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsShowRewarded,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
@@ -5614,17 +5662,17 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Behaviors.Rotate.Acts.SetSpeed,
+		C3.Plugins.Eponesh_GameScore.Exps.PlayerGet,
+		C3.Plugins.Arr.Exps.LastIndexOf,
+		C3.Plugins.Arr.Exps.IndexOf,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsShowPreloader,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsShowSticky,
 		C3.Plugins.Text.Acts.Destroy,
-		C3.Plugins.Arr.Exps.LastIndexOf,
-		C3.Plugins.Arr.Exps.IndexOf,
-		C3.Plugins.Arr.Exps.At,
 		C3.Plugins.System.Cnds.Repeat,
 		C3.Plugins.Sprite.Acts.SetPos,
+		C3.Plugins.Arr.Exps.At,
 		C3.Behaviors.Pin.Acts.PinByProperties,
 		C3.Plugins.Text.Acts.SetFontSize,
-		C3.Plugins.Eponesh_GameScore.Acts.LeaderboardOpen,
 		C3.Plugins.Arr.Cnds.CompareX,
 		C3.Plugins.System.Cnds.PickAll
 	];
@@ -5741,6 +5789,8 @@ self.C3_JsPropNameTable = [
 	{Adicon: 0},
 	{CounterText: 0},
 	{Leaderboard: 0},
+	{FullscreenBtn: 0},
+	{TextInput: 0},
 	{Buttons: 0},
 	{isTurning: 0},
 	{isBonusLevel: 0},
@@ -5759,6 +5809,7 @@ self.C3_JsPropNameTable = [
 	{shopActive: 0},
 	{curFrontSkin: 0},
 	{curBackSkin: 0},
+	{isFirstRun: 0},
 	{dx: 0},
 	{dy: 0},
 	{padding: 0}
@@ -5992,18 +6043,24 @@ self.C3_ExpressionFuncs = [
 			return () => (f0() / f1());
 		},
 		() => 1.85,
-		() => 1.75,
 		() => 20,
+		() => 1.75,
+		() => 30,
 		() => "PopupPause",
 		() => 0.3,
 		() => "WinPopup",
+		() => "Gold",
 		() => "PopupGift",
+		() => "Level",
 		() => "PopupSkin",
+		() => "Level, Gold",
 		() => 200,
 		() => 50,
 		() => "SkinPopup",
-		() => 11,
 		() => 0.99,
+		() => "SkinProgress",
+		() => "GetSkins",
+		() => 11,
 		() => 0.125,
 		() => "v",
 		p => {
@@ -6018,6 +6075,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() + 8);
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => and("BackSkins", v0.GetValue());
 		},
 		() => 15,
 		() => "GiftPopup",
@@ -6062,13 +6123,91 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0((-720), 720);
 		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("Gold");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("Level");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("GetSkins");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("SkinProgress");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("FrontSkins0");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("FrontSkins1");
+		},
+		() => 4,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("FrontSkins2");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("FrontSkins3");
+		},
+		() => 6,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("FrontSkins4");
+		},
+		() => 7,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("FrontSkins5");
+		},
+		() => 8,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("BackSkins0");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("BackSkins1");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("BackSkins2");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("BackSkins3");
+		},
+		() => 12,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("BackSkins4");
+		},
+		() => 13,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("BackSkins5");
+		},
+		() => 14,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject(2) - 8);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject(2) - 2);
+		},
 		() => "LoadMenu",
 		() => "state",
 		() => "save.json",
 		() => 500,
 		() => 750,
 		() => 1000,
-		() => 4,
 		() => 1250,
 		() => 1500,
 		() => "Transition",
@@ -6080,7 +6219,6 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 1.15,
 		() => "fontSize",
-		() => 30,
 		() => 34,
 		() => "Mask",
 		p => {
@@ -6091,27 +6229,6 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => ((n0.ExpObject() * 74) + 185);
 		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject(2) - 8);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject(2) - 2);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpObject(0);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpObject(1);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpObject(14);
-		},
-		() => 6,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => ((f0() % 3) * 150);
@@ -6188,6 +6305,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() + 2);
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => and("FrontSkins", v0.GetValue());
 		},
 		p => {
 			const n0 = p._GetNode(0);
