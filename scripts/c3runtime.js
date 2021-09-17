@@ -5713,6 +5713,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Behaviors.Rotate.Acts.SetSpeed,
+		C3.Plugins.Arr.Acts.SetSize,
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerGet,
 		C3.Plugins.Arr.Exps.LastIndexOf,
 		C3.Plugins.Arr.Exps.IndexOf,
@@ -6139,7 +6140,6 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => and("BackSkins", v0.GetValue());
 		},
-		() => 15,
 		() => "GiftPopup",
 		p => {
 			const n0 = p._GetNode(0);
@@ -6183,6 +6183,7 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0((-720), 720);
 		},
+		() => 15,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("Gold");
@@ -6253,7 +6254,6 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("BackSkins5");
 		},
-		() => 14,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject(2) - 8);
