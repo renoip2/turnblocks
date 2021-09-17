@@ -5689,6 +5689,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.System.Acts.RestartLayout,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsShowFullscreen,
+		C3.Plugins.Eponesh_GameScore.Acts.AdsRefreshSticky,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.Browser.Cnds.IsFullscreen,
 		C3.Plugins.Browser.Acts.CancelFullScreen,
@@ -6059,6 +6060,10 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("Прекрасно!", "Идеально!", "Отлично!");
 		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => and("level", v0.GetValue());
+		},
 		() => "+ 200",
 		() => "+ 100",
 		() => "+ 50",
@@ -6105,13 +6110,16 @@ self.C3_ExpressionFuncs = [
 		() => "Level",
 		() => "PopupSkin",
 		() => "Level, Gold",
+		() => "openLeaderboard",
 		() => 200,
+		() => "rewardWin",
 		() => 50,
 		() => "SkinPopup",
 		() => 0.99,
 		() => "SkinProgress",
 		() => "GetSkins",
 		() => 11,
+		() => "rewardSkin",
 		() => 0.125,
 		() => "v",
 		p => {
@@ -6164,6 +6172,7 @@ self.C3_ExpressionFuncs = [
 			return () => and("+ ", v0.GetValue());
 		},
 		() => "Выберите еще подарок!",
+		() => "rewardGift",
 		() => "FX",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -6347,9 +6356,10 @@ self.C3_ExpressionFuncs = [
 		() => "MenuUI",
 		() => 1200,
 		() => 575,
+		() => "visitShop",
 		() => "Shop",
 		() => 0.01,
-		() => 675,
+		() => 670,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() + 2);
@@ -6366,6 +6376,7 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => (-n0.ExpInstVar());
 		},
+		() => "buySkin",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() + 8);
