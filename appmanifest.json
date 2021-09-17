@@ -1,7 +1,7 @@
 {
 	"name": "TurnBlocks",
 	"short_name": "TurnBlocks",
-	"description": "",
+	"description": "Puzzle game",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "portrait",
