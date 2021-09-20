@@ -5671,10 +5671,11 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.TextBox,
 		C3.Plugins.Browser,
 		C3.Plugins.PlatformInfo,
+		C3.Plugins.System.Cnds.PickByComparison,
+		C3.Behaviors.Tween.Acts.TweenTwoProperties,
+		C3.Plugins.System.Acts.Wait,
 		C3.Plugins.Text.Acts.SetVisible,
 		C3.Plugins.Text.Acts.SetText,
-		C3.Plugins.System.Acts.Wait,
-		C3.Behaviors.Tween.Acts.TweenTwoProperties,
 		C3.Plugins.Sprite.Acts.SetAnimSpeed,
 		C3.Behaviors.Tween.Acts.StopAllTweens,
 		C3.Plugins.Sprite.Acts.SetAnimFrame,
@@ -5717,12 +5718,12 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.AnimationFrame,
 		C3.Plugins.System.Exps.choose,
 		C3.Plugins.Eponesh_GameScore.Acts.AnalyticsGoal,
+		C3.Plugins.Sprite.Acts.SetDefaultColor,
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Behaviors.Tween.Acts.TweenOneProperty,
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.System.Cnds.For,
 		C3.Plugins.System.Exps.loopindex,
-		C3.Plugins.System.Cnds.PickByComparison,
 		C3.Plugins.System.Exps.windowheight,
 		C3.Plugins.System.Exps.windowwidth,
 		C3.Plugins.Text.Acts.SetY,
@@ -5787,6 +5788,8 @@ self.C3_JsPropNameTable = [
 	{IndicatorCoinText: 0},
 	{WinNextBtn: 0},
 	{WinNextText: 0},
+	{id: 0},
+	{Star: 0},
 	{SkinIn: 0},
 	{SkinMask: 0},
 	{SkinOut: 0},
@@ -5796,7 +5799,6 @@ self.C3_JsPropNameTable = [
 	{SkinNextBtn: 0},
 	{SkinNextText: 0},
 	{AdiconSkin: 0},
-	{id: 0},
 	{GiftDown: 0},
 	{GiftUp: 0},
 	{Coins: 0},
@@ -6015,13 +6017,21 @@ function or(l, r)
 }
 
 self.C3_ExpressionFuncs = [
-		() => 2,
-		() => 1,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpInstVar();
+		},
+		() => 0,
 		() => "",
+		() => 1.2,
+		() => 0.3,
+		() => 1,
+		() => 0.4,
+		() => 2,
+		() => 0.8,
 		() => 465,
 		() => 515,
 		() => 1.1,
-		() => 0.8,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (450 + v0.GetValue());
@@ -6031,7 +6041,6 @@ self.C3_ExpressionFuncs = [
 			return () => (740 + v0.GetValue());
 		},
 		() => 4,
-		() => 0,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (90 + v0.GetValue());
@@ -6064,7 +6073,6 @@ self.C3_ExpressionFuncs = [
 		() => 270.5,
 		() => 480.5,
 		() => 4000,
-		() => 0.4,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() % 10);
@@ -6082,7 +6090,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 50);
+			return () => (n0.ExpObject() - 35);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -6118,10 +6126,6 @@ self.C3_ExpressionFuncs = [
 		() => 0.1,
 		() => 0.05,
 		() => -1,
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpInstVar();
-		},
 		() => 25,
 		() => 0.2,
 		p => {
@@ -6135,6 +6139,9 @@ self.C3_ExpressionFuncs = [
 		() => "+ 200",
 		() => "+ 100",
 		() => "+ 50",
+		() => 5,
+		() => 8177916,
+		() => 8,
 		() => "PopupWin",
 		() => 100,
 		() => 0.45,
@@ -6144,7 +6151,6 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => ((v0.GetValue() % 10) - 1);
 		},
-		() => 5,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() % 5);
@@ -6167,7 +6173,6 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => (and("Осталось ", (10 - v0.GetValue())) + " шагов");
 		},
-		() => 0.3,
 		() => "WinPopup",
 		() => "Gold",
 		() => "PopupGift",
@@ -6289,7 +6294,6 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("FrontSkins5");
 		},
-		() => 8,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("BackSkins0");
