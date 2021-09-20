@@ -5339,6 +5339,47 @@ WindowInnerWidth(){return this._runtime.GetCanvasManager().GetLastWidth()},Windo
 }
 
 {
+'use strict';const C3=self.C3;C3.Plugins.PlatformInfo=class PlatformInfoPlugin extends C3.SDKPluginBase{constructor(opts){super(opts)}Release(){super.Release()}};
+
+}
+
+{
+'use strict';const C3=self.C3;C3.Plugins.PlatformInfo.Type=class PlatformInfoType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}};
+
+}
+
+{
+'use strict';const C3=self.C3;const DOM_COMPONENT_ID="platform-info";
+C3.Plugins.PlatformInfo.Instance=class PlatformInfoInstance extends C3.SDKInstanceBase{constructor(inst,properties){super(inst,DOM_COMPONENT_ID);this._screenWidth=0;this._screenHeight=0;this._windowOuterWidth=0;this._windowOuterHeight=0;this._safeAreaInset=[0,0,0,0];this._supportsWakeLock=false;this._isWakeLockActive=false;this.AddDOMMessageHandlers([["window-resize",e=>this._OnWindowResize(e)],["wake-lock-acquired",e=>this._OnWakeLockAcquired(e)],["wake-lock-error",e=>this._OnWakeLockError(e)],["wake-lock-released",
+e=>this._OnWakeLockReleased(e)]]);if(navigator.connection)navigator.connection.addEventListener("change",()=>this._OnNetworkChange());this._runtime.AddLoadPromise(this.PostToDOMAsync("get-initial-state").then(data=>{this._screenWidth=data["screenWidth"];this._screenHeight=data["screenHeight"];this._windowOuterWidth=data["windowOuterWidth"];this._windowOuterHeight=data["windowOuterHeight"];this._safeAreaInset=data["safeAreaInset"];this._supportsWakeLock=data["supportsWakeLock"]}))}Release(){super.Release()}_OnWindowResize(e){this._windowOuterWidth=
+e["windowOuterWidth"];this._windowOuterHeight=e["windowOuterHeight"];this._safeAreaInset=e["safeAreaInset"]}async _OnNetworkChange(){await this.TriggerAsync(C3.Plugins.PlatformInfo.Cnds.OnNetworkChange)}async _OnWakeLockAcquired(){this._isWakeLockActive=true;await this.TriggerAsync(C3.Plugins.PlatformInfo.Cnds.OnWakeLockAcquired)}async _OnWakeLockError(){this._isWakeLockActive=false;await this.TriggerAsync(C3.Plugins.PlatformInfo.Cnds.OnWakeLockError)}async _OnWakeLockReleased(){this._isWakeLockActive=
+false;await this.TriggerAsync(C3.Plugins.PlatformInfo.Cnds.OnWakeLockReleased)}};
+
+}
+
+{
+'use strict';const C3=self.C3;
+C3.Plugins.PlatformInfo.Cnds={IsOnMobile(){return C3.Platform.IsMobile},IsOnWindows(){return C3.Platform.OS==="Windows"},IsOnMacOS(){return C3.Platform.OS==="Mac OS X"},IsOnLinux(){return C3.Platform.OS==="Linux"},IsOnChromeOS(){return C3.Platform.OS==="Chrome OS"},IsOnAndroid(){return C3.Platform.OS==="Android"},IsOniOS(){return C3.Platform.OS==="iOS"},IsWebExport(){const exportType=this._runtime.GetExportType();return exportType==="html5"||exportType==="scirra-arcade"||exportType==="preview"||exportType===
+"instant-games"},IsCordovaExport(){return this._runtime.IsCordova()},IsNWjsExport(){return this._runtime.GetExportType()==="nwjs"},IsWindowsUWPExport(){return this._runtime.GetExportType()==="windows-uwp"},IsWindowsWebView2Export(){return this._runtime.GetExportType()==="windows-webview2"},IsMacOSWKWebView2Export(){return this._runtime.GetExportType()==="macos-wkwebview"},OnNetworkChange(){return true},OnWakeLockAcquired(){return true},OnWakeLockError(){return true},OnWakeLockReleased(){return true},
+IsWakeLockActive(){return this._isWakeLockActive},IsWakeLockSupported(){return this._supportsWakeLock}};
+
+}
+
+{
+'use strict';const C3=self.C3;C3.Plugins.PlatformInfo.Acts={RequestWakeLock(){if(!this._supportsWakeLock)return;this._PostToDOMMaybeSync("request-wake-lock")},ReleaseWakeLock(){if(!this._supportsWakeLock)return;this._isWakeLockActive=false;this.PostToDOM("release-wake-lock")}};
+
+}
+
+{
+'use strict';const C3=self.C3;
+C3.Plugins.PlatformInfo.Exps={Renderer(){if(this._runtime.GetWebGPURenderer())return"webgpu";else{const webglRenderer=this._runtime.GetWebGLRenderer();let ret="webgl"+webglRenderer.GetWebGLVersionNumber();if(webglRenderer.HasMajorPerformanceCaveat())ret+="-software";return ret}},RendererDetail(){return this._runtime.GetWebGLRenderer().GetUnmaskedRenderer()},DevicePixelRatio(){return self.devicePixelRatio},ScreenWidth(){return this._screenWidth},ScreenHeight(){return this._screenHeight},WindowInnerWidth(){return this._runtime.GetCanvasManager().GetLastWidth()},
+WindowInnerHeight(){return this._runtime.GetCanvasManager().GetLastHeight()},WindowOuterWidth(){return this._windowOuterWidth},WindowOuterHeight(){return this._windowOuterHeight},CanvasCssWidth(){return this._runtime.GetCanvasManager().GetCssWidth()},CanvasCssHeight(){return this._runtime.GetCanvasManager().GetCssHeight()},CanvasDeviceWidth(){return this._runtime.GetCanvasManager().GetDeviceWidth()},CanvasDeviceHeight(){return this._runtime.GetCanvasManager().GetDeviceHeight()},Downlink(){if(navigator.connection)return navigator.connection["downlink"]||
+0;else return 0},DownlinkMax(){if(navigator.connection)return navigator.connection["downlinkMax"]||0;else return 0},ConnectionType(){if(navigator.connection)return navigator.connection["type"]||"unknown";else return"unknown"},ConnectionEffectiveType(){if(navigator.connection)return navigator.connection["effectiveType"]||"unknown";else return"unknown"},ConnectionRTT(){if(navigator.connection)return navigator.connection["rtt"]||0;else return 0},HardwareConcurrency(){return navigator.hardwareConcurrency||
+0},DeviceMemory(){return navigator.deviceMemory||0},SafeAreaInsetTop(){return this._safeAreaInset[0]},SafeAreaInsetRight(){return this._safeAreaInset[1]},SafeAreaInsetBottom(){return this._safeAreaInset[2]},SafeAreaInsetLeft(){return this._safeAreaInset[3]}};
+
+}
+
+{
 'use strict';const C3=self.C3;C3.Behaviors.Tween=class TweenBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}};
 
 }
@@ -5629,11 +5670,14 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Eponesh_GameScore,
 		C3.Plugins.TextBox,
 		C3.Plugins.Browser,
+		C3.Plugins.PlatformInfo,
 		C3.Plugins.Text.Acts.SetVisible,
 		C3.Plugins.Text.Acts.SetText,
 		C3.Plugins.System.Acts.Wait,
 		C3.Behaviors.Tween.Acts.TweenTwoProperties,
 		C3.Plugins.Sprite.Acts.SetAnimSpeed,
+		C3.Behaviors.Tween.Acts.StopAllTweens,
+		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.System.Cnds.IsGroupActive,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Sprite.Acts.SetHeight,
@@ -5649,6 +5693,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Text.Acts.SetPos,
 		C3.Plugins.Text.Exps.X,
 		C3.Plugins.Text.Exps.Y,
+		C3.Plugins.Text.Acts.Destroy,
 		C3.Plugins.AJAX.Cnds.OnComplete,
 		C3.Plugins.Arr.Cnds.ArrForEach,
 		C3.Plugins.Arr.Acts.JSONLoad,
@@ -5659,7 +5704,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.AddChild,
 		C3.Plugins.Sprite.Acts.SetVisible,
 		C3.Plugins.Arr.Cnds.CompareXY,
-		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.Sprite.Cnds.PickChildren,
 		C3.Plugins.Sprite.Cnds.OnCreated,
@@ -5674,14 +5718,11 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.choose,
 		C3.Plugins.Eponesh_GameScore.Acts.AnalyticsGoal,
 		C3.Plugins.System.Acts.SetLayerVisible,
-		C3.Plugins.Sprite.Acts.MoveToLayer,
 		C3.Behaviors.Tween.Acts.TweenOneProperty,
-		C3.Plugins.System.Cnds.PickByComparison,
-		C3.Plugins.Arr.Exps.CurValue,
-		C3.Plugins.Sprite.Acts.SetDefaultColor,
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.System.Cnds.For,
 		C3.Plugins.System.Exps.loopindex,
+		C3.Plugins.System.Cnds.PickByComparison,
 		C3.Plugins.System.Exps.windowheight,
 		C3.Plugins.System.Exps.windowwidth,
 		C3.Plugins.Text.Acts.SetY,
@@ -5689,11 +5730,16 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.System.Acts.RestartLayout,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsShowFullscreen,
+		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsRefreshSticky,
 		C3.Plugins.System.Acts.GoToLayout,
+		C3.Plugins.PlatformInfo.Cnds.IsOniOS,
 		C3.Plugins.Browser.Cnds.IsFullscreen,
 		C3.Plugins.Browser.Acts.CancelFullScreen,
 		C3.Plugins.Browser.Acts.RequestFullScreen,
+		C3.Plugins.Eponesh_GameScore.Cnds.IsFullscreenMode,
+		C3.Plugins.Eponesh_GameScore.Acts.FullscreenOpen,
+		C3.Plugins.Eponesh_GameScore.Acts.FullscreenClose,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerSet,
 		C3.Plugins.Eponesh_GameScore.Acts.PlayerSync,
 		C3.Plugins.Arr.Acts.SetX,
@@ -5717,14 +5763,11 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Eponesh_GameScore.Exps.PlayerGet,
 		C3.Plugins.Arr.Exps.LastIndexOf,
 		C3.Plugins.Arr.Exps.IndexOf,
-		C3.Plugins.Eponesh_GameScore.Acts.AdsShowPreloader,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsShowSticky,
-		C3.Plugins.Text.Acts.Destroy,
 		C3.Plugins.System.Cnds.Repeat,
 		C3.Plugins.Sprite.Acts.SetPos,
 		C3.Plugins.Arr.Exps.At,
 		C3.Behaviors.Pin.Acts.PinByProperties,
-		C3.Plugins.Text.Acts.SetFontSize,
 		C3.Plugins.Arr.Cnds.CompareX,
 		C3.Plugins.System.Cnds.PickAll
 	];
@@ -5777,9 +5820,7 @@ self.C3_JsPropNameTable = [
 	{MenuBlock: 0},
 	{ShopBtn: 0},
 	{ShopIcon: 0},
-	{PlayIcon: 0},
 	{PlayBtn: 0},
-	{PlayText: 0},
 	{ShopText: 0},
 	{ScrollMask: 0},
 	{Logo: 0},
@@ -5813,6 +5854,9 @@ self.C3_JsPropNameTable = [
 	{Mark2: 0},
 	{Mark1: 0},
 	{Prices: 0},
+	{LoseText: 0},
+	{RestartLoseBtn: 0},
+	{RestartLoseText: 0},
 	{Blocks: 0},
 	{Block: 0},
 	{Touch: 0},
@@ -5844,6 +5888,9 @@ self.C3_JsPropNameTable = [
 	{FullscreenBtn: 0},
 	{TextInput: 0},
 	{Browser: 0},
+	{TutorText: 0},
+	{PlatformInfo: 0},
+	{StepsInfo: 0},
 	{Buttons: 0},
 	{isTurning: 0},
 	{isBonusLevel: 0},
@@ -5857,6 +5904,8 @@ self.C3_JsPropNameTable = [
 	{steps: 0},
 	{getSkins: 0},
 	{giftOpened: 0},
+	{pointerOffX: 0},
+	{pointerOffY: 0},
 	{i: 0},
 	{reward: 0},
 	{shopActive: 0},
@@ -5966,14 +6015,33 @@ function or(l, r)
 }
 
 self.C3_ExpressionFuncs = [
-		() => 3,
-		() => 1,
 		() => 2,
+		() => 1,
 		() => "",
 		() => 465,
 		() => 515,
 		() => 1.1,
 		() => 0.8,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (450 + v0.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (740 + v0.GetValue());
+		},
+		() => 4,
+		() => 0,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (90 + v0.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (380 + v0.GetValue());
+		},
+		() => 270,
+		() => 900,
 		() => "LoadLevel",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -5996,7 +6064,6 @@ self.C3_ExpressionFuncs = [
 		() => 270.5,
 		() => 480.5,
 		() => 4000,
-		() => 0,
 		() => 0.4,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -6069,19 +6136,9 @@ self.C3_ExpressionFuncs = [
 		() => "+ 100",
 		() => "+ 50",
 		() => "PopupWin",
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 260);
-		},
 		() => 100,
-		() => "heart",
-		() => "heart2.json",
 		() => 0.45,
-		() => 270,
 		() => -50,
-		() => -717706217337855,
-		() => 1.05,
-		() => 0.75,
 		() => 9,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -6103,7 +6160,13 @@ self.C3_ExpressionFuncs = [
 		() => 20,
 		() => 1.75,
 		() => 30,
+		() => "PopupLose",
+		() => 3,
 		() => "PopupPause",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (and("Осталось ", (10 - v0.GetValue())) + " шагов");
+		},
 		() => 0.3,
 		() => "WinPopup",
 		() => "Gold",
@@ -6208,7 +6271,6 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("FrontSkins1");
 		},
-		() => 4,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("FrontSkins2");
@@ -6278,8 +6340,6 @@ self.C3_ExpressionFuncs = [
 			return () => (and("level", f0(f1(1, 100))) + ".json");
 		},
 		() => 1.15,
-		() => "fontSize",
-		() => 34,
 		() => "Mask",
 		p => {
 			const n0 = p._GetNode(0);
@@ -6287,7 +6347,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((n0.ExpObject() * 74) + 185);
+			return () => ((n0.ExpObject() * 74) + 1000);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -6349,17 +6409,21 @@ self.C3_ExpressionFuncs = [
 			return () => (f0() + 1);
 		},
 		() => 0.04,
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpBehavior("fontSize");
-		},
 		() => "MenuUI",
 		() => 1200,
-		() => 575,
+		() => 530,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 880);
+		},
 		() => "visitShop",
 		() => "Shop",
 		() => 0.01,
-		() => 670,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() + 880);
+		},
+		() => 585,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpInstVar() + 2);
