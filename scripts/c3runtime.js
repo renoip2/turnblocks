@@ -5765,6 +5765,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Arr.Exps.LastIndexOf,
 		C3.Plugins.Arr.Exps.IndexOf,
 		C3.Plugins.Eponesh_GameScore.Acts.AdsShowSticky,
+		C3.Plugins.PlatformInfo.Cnds.IsOnMobile,
 		C3.Plugins.System.Cnds.Repeat,
 		C3.Plugins.Sprite.Acts.SetPos,
 		C3.Plugins.Arr.Exps.At,
@@ -5828,6 +5829,7 @@ self.C3_JsPropNameTable = [
 	{Logo: 0},
 	{Arrow: 0},
 	{VisitShopText: 0},
+	{LeaderBtn: 0},
 	{PauseText: 0},
 	{ResumeBtn: 0},
 	{ResumeText: 0},
@@ -6123,6 +6125,7 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "TouchBlock",
 		() => "Game",
+		() => 10,
 		() => 0.1,
 		() => 0.05,
 		() => -1,
@@ -6155,7 +6158,6 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() % 5);
 		},
-		() => 10,
 		() => "GameUI",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -6169,6 +6171,9 @@ self.C3_ExpressionFuncs = [
 		() => "PopupLose",
 		() => 3,
 		() => "PopupPause",
+		() => 560,
+		() => "У вас не осталось шагов!",
+		() => "Начать заново?",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (and("Осталось ", (10 - v0.GetValue())) + " шагов");
@@ -6343,7 +6348,7 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => (and("level", f0(f1(1, 100))) + ".json");
 		},
-		() => 1.15,
+		() => 0.6,
 		() => "Mask",
 		p => {
 			const n0 = p._GetNode(0);
@@ -6351,7 +6356,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((n0.ExpObject() * 74) + 1000);
+			return () => ((n0.ExpObject() * 74) + 1200);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -6425,7 +6430,7 @@ self.C3_ExpressionFuncs = [
 		() => 0.01,
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() + 880);
+			return () => (n0.ExpObject() + 1080);
 		},
 		() => 585,
 		p => {
